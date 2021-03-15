@@ -96,9 +96,8 @@ func main() {
 	if e1 != io.EOF {
 		CHandleError(e1, "read nameByte")
 	}
-	dial, err := net.Dial("tcp", "127.0.0.1:6666")
-	CHandleError(err,
-		"net.Dial")
+	dial, err := net.DialTimeout("tcp", "127.0.0.1:6666",time.Second*5)
+	CHandleError(err, "net.DialTimeout")
 	_, e1 = dial.Write(nameByte)
 	CHandleError(e1, "dial.Write")
 	defer dial.Close()
